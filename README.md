@@ -9,7 +9,6 @@ Repository to explore and learn the Model Context Protocol (MCP) using the Googl
 - Provide small reproducible examples
 
 ## Structure
-- `examples/` – small MCP experiments
 - `servers/` – MCP server implementations
 - `agents/` – ADK agents using MCP
 

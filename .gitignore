@@ -16,6 +16,8 @@ __pycache__/
 venv/
 ENV/
 env/
+.env
+.envrc
 
 # uv specific
 .uv.cache/
@@ -28,8 +30,3 @@ htmlcov/
 .mypy_cache/
 .ruff_cache/
 .tox/
-
-# Project structure placeholders (optional, to keep empty dirs in git if needed, otherwise ignore)
-# examples/
-# servers/
-# agents/
