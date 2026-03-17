@@ -1,55 +1,78 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+#
+# Bootstraps the ADK MCP Lab project environment.
+# Sets up a virtual environment, configures the uv package manager, 
+# and prepares the hatchling build system natively.
+
+set -euo pipefail
+
+# Constants
+readonly PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+readonly VENV_DIR="${PROJECT_ROOT}/.venv"
 
 # Colors for output
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+readonly GREEN=$'\033[0;32m'
+readonly YELLOW=$'\033[1;33m'
+readonly NC=$'\033[0m'
 
-# Determine project root and virtual environment path
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-VENV_DIR="$PROJECT_ROOT/.venv"
+log_info() {
+    echo -e "${YELLOW}INFO:${NC} $1"
+}
 
-echo -e "${YELLOW}Bootstrapping project environment...${NC}"
+log_success() {
+    echo -e "${GREEN}SUCCESS:${NC} $1"
+}
 
-# Create virtual environment if it doesn't exist
-if [ ! -d "$VENV_DIR" ]; then
-    echo "Creating virtual environment at .venv..."
-    python3 -m venv "$VENV_DIR"
-fi
+setup_environment() {
+    if [[ ! -d "${VENV_DIR}" ]]; then
+        log_info "Creating virtual environment at .venv..."
+        python3 -m venv "${VENV_DIR}"
+    fi
 
-# Activate virtual environment
-source "$VENV_DIR/bin/activate"
+    # Activate virtual environment
+    source "${VENV_DIR}/bin/activate"
 
-# Ensure uv is installed
-if ! command -v uv &> /dev/null; then
-    echo "Installing uv package manager..."
-    pip install -q uv
-fi
+    if ! command -v uv &> /dev/null; then
+        log_info "Installing the uv package manager..."
+        pip install -q uv
+    fi
+}
 
-cd "$PROJECT_ROOT"
+initialize_project() {
+    cd "${PROJECT_ROOT}"
 
-# Initialize project if pyproject.toml is missing
-if [ ! -f "pyproject.toml" ]; then
-    echo "Initializing new uv project..."
-    uv init .
+    if [[ -f "pyproject.toml" ]]; then
+        return 0
+    fi
+
+    log_info "Initializing new uv project..."
     
-    # Configure build system to package the src directory
-    echo "Configuring build system for src directory..."
-    cat << 'EOF' >> pyproject.toml
+    # Natively inject hatch build-backend into pyproject.toml
+    uv init . --build-backend hatch > /dev/null
+    
+    # Append the custom src package mapping explicitly needed by hatchling 
+    # for flat layouts.
+    log_info "Configuring build system for custom 'src' mapping..."
+    {
+        echo ""
+        echo "[tool.hatch.build.targets.wheel]"
+        echo "packages = [\"src\"]"
+    } >> pyproject.toml
+}
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+main() {
+    log_info "Bootstrapping project environment..."
 
-[tool.hatch.build.targets.wheel]
-packages = ["src"]
-EOF
-fi
+    setup_environment
+    initialize_project
 
-# Sync dependencies
-echo "Syncing dependencies..."
-uv sync
+    log_info "Syncing dependencies..."
+    cd "${PROJECT_ROOT}"
+    uv sync > /dev/null
 
-echo -e "\n${GREEN}✅ Setup complete! Your environment is ready.${NC}"
-echo "To activate it, run: source .venv/bin/activate"
+    echo ""
+    log_success "Setup complete! Your environment is ready."
+    echo "To activate it, run: source .venv/bin/activate"
+}
+
+main "$@"
