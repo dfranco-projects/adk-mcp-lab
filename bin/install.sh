@@ -33,6 +33,18 @@ cd "$PROJECT_ROOT"
 if [ ! -f "pyproject.toml" ]; then
     echo "Initializing new uv project..."
     uv init .
+    
+    # Configure build system to package the src directory
+    echo "Configuring build system for src directory..."
+    cat << 'EOF' >> pyproject.toml
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+EOF
 fi
 
 # Sync dependencies
