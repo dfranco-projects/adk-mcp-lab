@@ -30,3 +30,6 @@ htmlcov/
 .mypy_cache/
 .ruff_cache/
 .tox/
+
+# Gemini agent config
+.gemini/
