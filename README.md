@@ -80,39 +80,40 @@ Version used: 1.27.2
 ## Repo structure
 
 ```
-agents/
-  basics/
-  custom/             # custom execution loop / overrides
-  yaml/
-  state/
-  memory/
-  artifacts/
-  multi/
-  graph/              # (2.0 alpha)
+src/
+  agents/
+    basics/
+    custom/             # custom execution loop / overrides
+    yaml/
+    state/
+    memory/
+    artifacts/
+    multi/
+    graph/              # (2.0 alpha)
 
-tools/
-  custom/
-  rag/
+  tools/
+    custom/
+    rag/
+    mcp/
+    openapi/
+
   mcp/
-  openapi/
+    local_stdio/
+    local_http/
+    remote/
 
-mcp/
-  local_stdio/
-  local_http/
-  remote/
+  a2a/
+    basic/
+    cross_framework/
 
-a2a/
-  basic/
-  cross_framework/
+  eval/
+    cli/
+    programmatic/
+    pipelines/
 
-eval/
-  cli/
-  programmatic/
-  pipelines/
-
-observability/
-deploy/
-models/
+  observability/
+  deploy/
+  models/
 ```
 
 Each folder:
