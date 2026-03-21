@@ -60,15 +60,15 @@ Instead of responding to each isolated request, an agent maintains context, plan
 
 However, not everything that contains these components is an agent. Breaking down its definition, agents can be characterized by the following 5 properties:
 
-* **Goal-Oriented** - Works towards objectives, not just respond to queries, understanding the difference between current state and desired state.
+* **Goal-Oriented** - Works towards objectives, not just responding to queries, understanding the difference between current state and desired state.
 
 * **Autonomous Operation** - Can operate without constant human intervention, making decisions and taking actions on its own.
 
-* **Proactive Initiative** - Actively works toward desired state even in absence of explicit instruction sets, it can reason about what it should do next.
+* **Proactive Initiative** - Actively works toward desired state even in the absence of explicit instruction sets; it can reason about what it should do next.
 
-4. **Environmental Awareness** - Agents observe and percieve their environment through various inputs like user requests, API responses, database states, etc. They build a model of the environment and use it to make decisions.
+* **Environmental Awareness** - Agents observe and perceive their environment through various inputs like user requests, API responses, database states, etc. They build a model of the environment and use it to make decisions.
 
-5. **Tool Use** - Agents can use tools to interact with their environment, such as calling APIs, running code, or accessing databases. This allows them to overcome the limitations of their training data and access real-time information.
+* **Tool Use** - Agents can use tools to interact with their environment, such as calling APIs, running code, or accessing databases. This allows them to overcome the limitations of their training data and access real-time information.
 
 ```mermaid
 graph LR
