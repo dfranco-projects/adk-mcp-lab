@@ -8,112 +8,27 @@ Version used: 1.27.2
 
 ---
 
-## What’s covered
+## Learning path
 
-### Core
-- Agents (tool-calling, multi-step reasoning)
-- Custom agents (override execution loop, `run` / control flow)
-- Structured tools (Python functions, OpenAPI, adapters)
-- Dynamic tool loading (`BaseToolset`)
-- YAML-defined agents (config-first workflows)
-
-### State & Memory
-- Session-based state (multi-turn, persistent)
-- Scoped memory (session / user / app)
-- Artifacts (documents, images, audio, structured blobs)
-- Persistence backends (in-memory, SQLite, cloud)
-
-### Retrieval (RAG)
-- Local RAG with Chroma
-- MCP-based retrieval pipelines
-- Custom retrieval tools (chunking, embeddings, ranking)
-- Context injection strategies
-
-### Multi-agent systems
-- Workflow agents (sequential, parallel, loop)
-- Coordinator + sub-agents patterns
-- LLM-routed agents
-- Agent-as-tool composition
-
-### MCP (Model Context Protocol)
-- Local MCP servers (stdio)
-- Remote MCP servers (HTTP/SSE)
-- Tool discovery and dynamic integration
-- Custom MCP server examples
-
-### A2A (Agent-to-Agent)
-- Exposing agents as services
-- Cross-agent communication
-- Cross-framework interoperability
-
-### Evaluation
-- Eval sets (multi-turn scenarios)
-- Tool correctness validation
-- Response quality evaluation
-- Custom metrics pipelines
-- CI integration (automated eval runs)
-
-### Observability
-- Execution tracing (local + cloud)
-- OpenTelemetry integration
-- Debugging via `adk web`
-- Run inspection, replay, and step tracing
-
-### Streaming & Interaction
-- SSE streaming
-- Real-time responses
-- Audio / video pipelines
-
-### Optimization
-- Context caching
-- `adk optimize`
-- Cost / latency tradeoffs
-
-### Deployment
-- Local runner
-- Docker
-- Cloud Run (free tier viable)
-- Vertex AI Agent Engine
-
----
-
-## Repo structure
+This repository is structured as a progressive learning path, numbered `00` to `14`. Start at the beginning or jump to the concept you need.
 
 ```
 src/
-  agents/
-    basics/
-    custom/             # custom execution loop / overrides
-    yaml/
-    state/
-    memory/
-    artifacts/
-    multi/
-    graph/              # (2.0 alpha)
-
-  tools/
-    custom/
-    rag/
-    mcp/
-    openapi/
-
-  mcp/
-    local_stdio/
-    local_http/
-    remote/
-
-  a2a/
-    basic/
-    cross_framework/
-
-  eval/
-    cli/
-    programmatic/
-    pipelines/
-
-  observability/
-  deploy/
-  models/
+  00_intro/                 # Basic setup, API keys, adk run/web
+  01_basic_agent/           # Simple LlmAgent, core attributes
+  02_tools/                 # Function tools, built-in tools (search, code exec)
+  03_models/                # LiteLLM, Vertex Model Garden integration
+  04_structured_outputs/    # Pydantic schemas, JSON enforcement
+  05_state_session/         # InMemory vs Database session services, State dict
+  06_multi_agent/           # Coordinator + subagents, LLM-routed
+  07_workflows/             # Sequential, Parallel, and Loop agents
+  08_rag/                   # Vector stores, custom retrieval, Google RAG
+  09_mcp/                   # Local stdio/HTTP servers, remote servers
+  10_a2a/                   # Agent-to-Agent protocol communication
+  11_evaluation/            # adk eval, golden datasets, custom metrics
+  12_observability/         # OpenTelemetry tracing, debugging
+  13_deployment/            # Cloud Run, Vertex AI Agent Engine, Docker
+  14_advanced/              # Streaming, context caching, custom runner overrides
 ```
 
 Each folder:
