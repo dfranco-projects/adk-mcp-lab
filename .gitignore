@@ -33,3 +33,6 @@ htmlcov/
 
 # Gemini agent config
 .gemini/
+
+# ADK
+.adk/
