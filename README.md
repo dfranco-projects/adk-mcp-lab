@@ -4,7 +4,7 @@ Runnable, minimal examples covering advanced features of Google Agent Developmen
 
 Each directory is self-contained. Focus is on real patterns: stateful agents, RAG, MCP, A2A, evaluation, and production workflows.
 
-Version used: 1.27.2
+Version used: 2.0.0a1
 
 ---
 
